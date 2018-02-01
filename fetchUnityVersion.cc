@@ -12,8 +12,6 @@ using namespace node;
 
 #define THROW_BAD_ARGS Nan::ThrowTypeError("Bad argument")
 
-#ifdef _WIN32
-
 struct store_data_t {
 	Nan::Callback *cb;
 	int arg;
@@ -22,6 +20,9 @@ struct store_data_t {
 	char *unityVersion;
 	int result;
 };
+
+#ifdef _WIN32
+
 
 // returns NULL if the value could not be obtained
 char *GetUnityVersion(std::string szFilename)
@@ -107,7 +108,9 @@ static void ReqExecuted(uv_work_t *req) {
 static void ExecuteReq(uv_work_t *req) {
 	store_data_t* statvfs_data = static_cast<store_data_t *>(req->data);
 	statvfs_data->result = 0;
+#ifdef _WIN32
 	statvfs_data->unityVersion = GetUnityVersion(statvfs_data->path);
+#endif
 	free(statvfs_data->path);
 }
 
