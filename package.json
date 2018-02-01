@@ -12,5 +12,6 @@
     "nan": "^2.7.0"
   },
   "author": "Unity Technologies Inc.",
-  "license": "MIT"
+  "license": "MIT",
+  "os" : [ "win32" ]
 }
